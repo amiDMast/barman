@@ -1,0 +1,7 @@
+[{{ item.name }}]
+conninfo = host={{ item.host | default(item.name) }} port={{ item.port|default(5432) }} user={{ item.user }} password={{ item.password }} dbname={{ item.dbname | default('postgres') }}
+streaming_conninfo = host={{ item.stream_host | default(item.host) }} port={{ item.port|default(5432) }} user={{ item.streaming_user | default(item.user) }}  password={{ item.streaming_password | default(item.password) }}
+backup_method = postgres
+streaming_archiver = on
+slot_name = {{ item.slot_name | default('barmanwal') }}
+minimum_redundancy = "{{ item.minimum_redundancy | default(1) }}"

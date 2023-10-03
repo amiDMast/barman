@@ -1,0 +1,7 @@
+- name: Add postgres apt key
+  apt_key: url=https://www.postgresql.org/media/keys/ACCC4CF8.asc id=ACCC4CF8
+
+- name: Add postgres apt repository
+  apt_repository:
+    repo: deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_lsb.codename }}-pgdg main
+    state: present

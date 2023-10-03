@@ -1,0 +1,32 @@
+- name: Create postgres user for fetching backups and WALs
+  user:
+    name: postgres
+    comment: will be connected from db node for fetching backups and WALs
+    home: /var/lib/postgres
+    shell: /bin/bash
+  when: postgres_user_pub_key is defined
+
+- name: Add postgres user pub key
+  authorized_key:
+    user: barman
+    key: "{{ postgres_user_pub_key }}"
+  when: postgres_user_pub_key is defined
+
+- name: Add ssh key for barman user
+  copy:
+    src: "{{ postgres_user_private_key }}"
+    dest: /var/lib/barman/.ssh/id_rsa
+    #    content: "{{ postgres_user_private_key }}"
+    owner: barman
+    group: barman
+    mode: 0600
+  when: postgres_user_private_key is defined
+
+- name: Add ssh pub key for postgres user
+  copy:
+    dest: /var/lib/barman/.ssh/id_rsa.pub
+    content: "{{ postgres_user_pub_key }}"
+    owner: barman
+    group: barman
+    mode: 0600
+  when: postgres_user_pub_key is defined

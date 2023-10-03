@@ -1,0 +1,3 @@
+barman_packages:
+  - barman
+  - barman-cli

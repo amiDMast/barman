@@ -1,0 +1,17 @@
+- name: Update barman global config file
+  template:
+    src: barman.conf.j2
+    dest: /etc/barman.conf
+    owner: barman
+    group: barman
+    backup: yes
+
+- name: Update barman server file
+  template:
+    src: pgserver.conf.j2
+    dest: "/etc/barman.d/{{ item.name }}.conf"
+    backup: yes
+    owner: barman
+    group: barman
+  with_items: "{{ barman.servers }}"
+  no_log: true

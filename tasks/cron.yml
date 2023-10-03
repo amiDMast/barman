@@ -1,0 +1,25 @@
+- name: Configure barman cron
+  cron:
+    name: "barman cron"
+    user: barman
+    job: "/usr/bin/barman cron"
+
+- name: Configure creating new backup by barman
+  cron:
+    name: "barman backup {{ item.name }}"
+    user: barman
+    job: "/usr/bin/barman backup {{ item.name }}"
+    minute: "{{ item.bckp_create_min }}"
+    hour: "{{ item.bckp_create_hour }}"
+    weekday: "{{ item.bckp_create_day }}"
+  with_items: "{{ barman.servers }}"  
+
+- name: Configure deleting oldest backup by barman
+  cron:
+    name: "barman delete backup {{ item.name }}"
+    user: barman
+    job: "/usr/bin/barman delete {{ item.name }} oldest"
+    minute: "{{ item.bckp_delete_min }}"
+    hour: "{{ item.bckp_delete_hour }}"
+    weekday: "{{ item.bckp_delete_day }}"
+  with_items: "{{ barman.servers }}"

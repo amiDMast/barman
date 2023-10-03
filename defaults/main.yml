@@ -1,0 +1,16 @@
+# Log levels: DEBUG, INFO, WARNING, ERROR, CRITICAL
+barman:
+  log_level: INFO
+  servers:
+    - name: pgserver
+      host: backup
+      user: barman
+      password: barmanpass
+      slot_name: barmanwal
+      bckp_create_min: "0"
+      bckp_create_hour: "0"
+      bckp_create_day: "*"
+      bckp_delete_min: "0"
+      bckp_delete_hour: "3"
+      bckp_delete_day: "*"
+      minimum_redundancy: 1

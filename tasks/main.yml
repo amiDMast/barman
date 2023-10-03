@@ -1,0 +1,24 @@
+- import_tasks: repository.yml
+  tags:
+    - barman
+    - barman_repository
+
+- import_tasks: install.yml
+  tags:
+    - barman
+    - barman_install
+
+- import_tasks: config.yml
+  tags:
+    - barman
+    - barman_config
+
+- import_tasks: cron.yml
+  tags:
+    - barman
+    - barman_cron
+
+- import_tasks: users.yml
+  tags:
+    - barman
+    - barman_users
